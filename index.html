@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Invitation ✨</title>
+    <style>
+        :root {
+            --bg-color: #ffeef2;
+            --card-color: #ffffff;
+            --primary-color: #ff6b8b;
+            --text-color: #4a4a4a;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: var(--card-color);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.15);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transition: all 0.4s ease;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.5s ease forward;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: #d14966;
+        }
+
+        p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        /* Buttons styling */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            min-height: 60px;
+            align-items: center;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #yesBtn {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
+        }
+
+        #yesBtn:hover {
+            transform: scale(1.05);
+            background-color: #ff4f76;
+        }
+
+        #noBtn {
+            background-color: #e0e0e0;
+            color: #757575;
+        }
+
+        /* Inputs for Date/Time */
+        input[type="date"], input[type="time"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0 20px 0;
+            border: 2px solid #ffd1dc;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            box-sizing: border-box;
+            outline: none;
+            color: var(--text-color);
+        }
+
+        input[type="date"]:focus, input[type="time"]:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* Restaurant Cards */
+        .category-title {
+            text-align: left;
+            font-weight: bold;
+            margin: 15px 0 5px 0;
+            color: #ff6b8b;
+        }
+
+        .restaurant-option {
+            display: flex;
+            align-items: center;
+            background: #fff5f7;
+            border: 2px solid #ffe3e8;
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+
+        .restaurant-option:hover {
+            border-color: var(--primary-color);
+            background: #ffeef1;
+        }
+
+        .restaurant-option input {
+            margin-right: 15px;
+            accent-color: var(--primary-color);
+            transform: scale(1.2);
+        }
+
+        .restaurant-info {
+            flex-grow: 1;
+        }
+
+        .restaurant-name {
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 2px;
+        }
+
+        .maps-link {
+            font-size: 0.85rem;
+            color: #8b8b8b;
+            text-decoration: underline;
+        }
+
+        .submit-btn {
+            background-color: #25d366; /* WhatsApp Green */
+            color: white;
+            width: 100%;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: #20ba5a;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- SCREEN 1: THE PROPOSAL -->
+    <div id="screen1" class="screen active">
+        <h2>Will you go on a date with me? 🥺🌻</h2>
+        <p>I set up this little space because I want to take you out. You have to give an answer below...</p>
+        <div class="btn-group">
+            <button id="yesBtn" onclick="goToScreen(2)">YES! 💖</button>
+            <button id="noBtn" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: DATE & TIME -->
+    <div id="screen2" class="screen">
+        <h2>Yay! Lock in the time ⏰</h2>
+        <p>Pick a date and time that perfectly fits your schedule:</p>
+        
+        <label style="display:block; text-align:left; font-weight:bold;">Select Date:</label>
+        <input type="date" id="dateInput" required>
+
+        <label style="display:block; text-align:left; font-weight:bold;">Select Time:</label>
+        <input type="time" id="timeInput" required>
+
+        <button id="yesBtn" style="width: 100%;" onclick="validateScreen2()">Next: Choose Food! 🍕</button>
+    </div>
+
+    <!-- SCREEN 3: FOOD SELECTION -->
+    <div id="screen3" class="screen">
+        <h2>Where are we heading? 🗺️</h2>
+        <p>Pick the vibe you're feeling for this date:</p>
+
+        <div class="category-title">✨ Our Favorites</div>
+        
+        <!-- Restaurant 1 -->
+        <label class="restaurant-option">
+            <input type="radio" name="restaurant" value="Our Favorite Cafe Place" checked>
+            <div class="restaurant-info">
+                <div class="restaurant-name">Our Favorite Spot ☕</div>
+                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
+            </div>
+        </label>
+
+        <div class="category-title">🚀 Try Something New</div>
+        
+        <!-- Restaurant 2 -->
+        <label class="restaurant-option">
+            <input type="radio" name="restaurant" value="That New Pasta Place">
+            <div class="restaurant-info">
+                <div class="restaurant-name">The New Pasta Place 🍝</div>
+                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
+            </div>
+        </label>
+
+        <!-- Restaurant 3 -->
+        <label class="restaurant-option">
+            <input type="radio" name="restaurant" value="The Aesthetic Roof Top">
+            <div class="restaurant-info">
+                <div class="restaurant-name">The Aesthetic Rooftop 🌅</div>
+                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
+            </div>
+        </label>
+
+        <button class="submit-btn" onclick="sendToWhatsApp()">Send Me Your Choices! 🎉</button>
+    </div>
+</div>
+
+<script>
+    // Screen Transition Engine
+    function goToScreen(screenNum) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById(`screen${screenNum}`).classList.add('active');
+    }
+
+    function validateScreen2() {
+        const d = document.getElementById('dateInput').value;
+        const t = document.getElementById('timeInput').value;
+        if(!d || !t) {
+            alert("Don't skip! Please pick a date and time ");
+            return;
+        }
+        goToScreen(3);
+    }
+
+    // The Cheeky Trick "No" Button Interaction
+    const noBtn = document.getElementById('noBtn');
+    
+    // Desktop hover state
+    noBtn.addEventListener('mouseenter', () => {
+        noBtn.innerText = " :'( ";
+    });
+    noBtn.addEventListener('mouseleave', () => {
+        noBtn.innerText = "No";
+    });
+
+    // Mobile fallback: if they tap it, make it run away or swap to Yes!
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Stop the click
+        noBtn.innerText = "😢 (ಥ_ಥ)";
+        // Make the yes button grow massive to intercept the next tap!
+        document.getElementById('yesBtn').style.transform = "scale(1.4)";
+    });
+
+    // Send data straight to your WhatsApp
+    function sendToWhatsApp() {
+        const date = document.getElementById('dateInput').value;
+        const time = document.getElementById('timeInput').value;
+        const location = document.querySelector('input[name="restaurant"]:checked').value;
+
+        const message = `Hey! I filled out your date invite Form 🥰%0A%0A` +
+                        `📅 Date: ${date}%0A` +
+                        `⏰ Time: ${time}%0A` +
+                        `📍 Vibe: ${location}%0A%0A` +
+                        `See you there! ✨`;
+
+        // ⚠️ EDIT THIS LINE: Put your real phone number here! 
+        // Example format: "8801712345678" (Include country code, NO spaces, NO '+' sign)
+        const myPhoneNumber = "8801789887575"; 
+
+        window.open(`https://wa.me/${myPhoneNumber}?text=${message}`, '_blank');
+    }
+</script>
+
+</body>
+</html>

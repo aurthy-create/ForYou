@@ -1,302 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Invitation ✨</title>
-    <style>
-        :root {
-            --bg-color: #ffeef2;
-            --card-color: #ffffff;
-            --primary-color: #ff6b8b;
-            --text-color: #4a4a4a;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Birthday, Your Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--navy:#0F1923;--blue:#25334A;--muted:#536A91;--lav:#8E82B5;--blush:#DFA4B8;--red:#FF4655;--card:#F8F7FA;--ink:#172333;--sub:#68778D;--line:#E4E0EA}
+html{min-height:100%}
+body{font-family:'DM Sans',sans-serif;color:var(--ink);min-height:100vh;
+background:radial-gradient(ellipse at 85% 95%,rgba(223,164,184,.28),transparent 45%),radial-gradient(ellipse at 90% 60%,rgba(142,130,181,.4),transparent 55%),linear-gradient(155deg,#0F1923 0%,#25334A 50%,#3b4668 100%);
+background-attachment:fixed;padding:24px 16px 110px}
+.wrap{max-width:560px;margin:0 auto}
+.screen{display:none}.screen.active{display:block;animation:in .4s ease}
+@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px 22px;box-shadow:0 18px 50px rgba(15,25,35,.35)}
+.label{font-size:12px;letter-spacing:.14em;font-weight:600;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.label b{color:var(--red);margin-right:6px}
+h1,h2{font-family:'Playfair Display',serif;font-weight:600;color:var(--ink);line-height:1.2}
+h1{font-size:34px;margin-bottom:16px}h2{font-size:28px;margin-bottom:8px}
+.lead{color:var(--sub);font-size:15px;line-height:1.55;margin-bottom:20px}
+.love{background:#F5E7EC;border:1px solid #E8CBD5;border-radius:16px;padding:20px;margin:18px 0 24px;color:var(--muted);line-height:1.7;font-size:15.5px}
+.love p+p{margin-top:12px}.love .sig{color:var(--blue);font-weight:600}
+.heart{color:var(--blush)}.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--red);margin-left:4px;vertical-align:middle}
+.btn{width:100%;border:none;border-radius:14px;padding:15px;font:600 16px 'DM Sans',sans-serif;cursor:pointer;background:var(--blue);color:#fff;transition:.2s}
+.btn:hover{background:var(--muted)}
+.btn.blush{background:var(--blush);color:var(--blue)}.btn.blush:hover{background:#E7B5C6}
+.link{background:none;border:none;color:var(--sub);font:500 14px 'DM Sans';margin:14px auto 0;display:block;cursor:pointer;text-decoration:underline}
+.top{color:#fff;margin-bottom:16px}.top h2{color:#fff}.top .lead{color:#D8DFEA;margin:0}
+.tabs{display:flex;gap:6px;margin-bottom:16px;background:rgba(248,247,250,.12);padding:5px;border-radius:14px}
+.tab{flex:1;background:transparent;border:none;color:#D8DFEA;padding:10px;border-radius:10px;font:600 14px 'DM Sans';cursor:pointer;position:relative}
+.tab.active{background:var(--blue);color:#fff}
+.tab.active::after{content:"";position:absolute;left:30%;right:30%;bottom:3px;height:2px;border-radius:2px;background:var(--lav)}
+.cat{color:#D8DFEA;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin:20px 0 10px}
+.item{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:12px;cursor:pointer;transition:.2s;box-shadow:0 8px 24px rgba(15,25,35,.18)}
+.item:hover{border-color:var(--blush)}
+.item.selected{border-color:var(--blush);box-shadow:0 0 0 2px var(--blush),0 8px 24px rgba(15,25,35,.18)}
+.pic{width:86px;height:86px;flex:none;border-radius:12px;object-fit:cover;background:#EEEAF5;border:1px solid var(--line)}
+.info{flex:1;min-width:0;display:flex;flex-direction:column}
+.name{font-weight:700;font-size:16.5px;color:var(--ink)}
+.note{font-size:13.5px;color:var(--muted);line-height:1.45;margin:3px 0 6px}
+.map{font-size:13px;color:var(--lav);font-weight:600;text-decoration:none;margin-top:auto}.map:hover{text-decoration:underline}
+.add{align-self:center;flex:none;border:1.5px solid var(--lav);background:transparent;color:var(--lav);border-radius:12px;padding:9px 14px;font:600 13.5px 'DM Sans';cursor:pointer}
+.item.selected .add{background:var(--lav);color:#fff}
+.cartbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,120px);width:calc(100% - 32px);max-width:528px;background:var(--navy);border:1px solid rgba(142,130,181,.4);border-radius:18px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;transition:.3s;z-index:5}
+.cartbar.show{transform:translate(-50%,0)}
+.cartbar span{color:#fff;font-weight:600;font-size:15px}.cartbar span i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:8px}
+.cartbar button{background:var(--blush);color:var(--blue);border:none;border-radius:12px;padding:11px 16px;font:700 14px 'DM Sans';cursor:pointer}
+.summary{background:#EEEAF5;border:1px solid #D8D0E7;border-radius:16px;padding:16px 18px;margin:16px 0 22px}
+.summary h3{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.summary li{list-style:none;color:var(--muted);padding:4px 0;font-size:15px}.summary li::before{content:"♥";color:var(--blush);margin-right:8px}
+.fl{font-size:12px;letter-spacing:.14em;font-weight:600;color:var(--muted);text-transform:uppercase;margin:18px 0 10px;display:block}
+.cal{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.calhead b{color:var(--ink);font-size:16px}
+.calhead button{background:none;border:none;font-size:22px;color:var(--muted);width:36px;height:36px;border-radius:50%;cursor:pointer}
+.calhead button:disabled{color:#C9CED8;cursor:default}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.dow{font-size:11px;color:var(--sub);font-weight:600;padding:6px 0}
+.day{aspect-ratio:1;border-radius:50%;border:2px solid transparent;background:none;color:var(--muted);font:500 14.5px 'DM Sans';cursor:pointer;position:relative}
+.day:hover:not(:disabled){background:#EEEAF5}
+.day:disabled{color:#C9CED8;cursor:default}
+.day.today::after{content:"";position:absolute;bottom:4px;left:50%;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:var(--red)}
+.day.sel{border-color:var(--red);color:var(--ink);font-weight:700;background:rgba(223,164,184,.25)}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .container {
-            background: var(--card-color);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 107, 139, 0.15);
-            text-align: center;
-            max-width: 450px;
-            width: 90%;
-            transition: all 0.4s ease;
-        }
-
-        .screen {
-            display: none;
-        }
-
-        .screen.active {
-            display: block;
-            animation: fadeIn 0.5s ease forward;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: #d14966;
-        }
-
-        p {
-            font-size: 1.05rem;
-            line-height: 1.5;
-            margin-bottom: 2rem;
-        }
-
-        /* Buttons styling */
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-            min-height: 60px;
-            align-items: center;
-        }
-
-        button {
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        #yesBtn {
-            background-color: var(--primary-color);
-            color: white;
-            box-shadow: 0 5px 15px rgba(255, 107, 139, 0.4);
-        }
-
-        #yesBtn:hover {
-            transform: scale(1.05);
-            background-color: #ff4f76;
-        }
-
-        #noBtn {
-            background-color: #e0e0e0;
-            color: #757575;
-        }
-
-        /* Inputs for Date/Time */
-        input[type="date"], input[type="time"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0 20px 0;
-            border: 2px solid #ffd1dc;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            box-sizing: border-box;
-            outline: none;
-            color: var(--text-color);
-        }
-
-        input[type="date"]:focus, input[type="time"]:focus {
-            border-color: var(--primary-color);
-        }
-
-        /* Restaurant Cards */
-        .category-title {
-            text-align: left;
-            font-weight: bold;
-            margin: 15px 0 5px 0;
-            color: #ff6b8b;
-        }
-
-        .restaurant-option {
-            display: flex;
-            align-items: center;
-            background: #fff5f7;
-            border: 2px solid #ffe3e8;
-            border-radius: 12px;
-            padding: 10px;
-            margin-bottom: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-        }
-
-        .restaurant-option:hover {
-            border-color: var(--primary-color);
-            background: #ffeef1;
-        }
-
-        .restaurant-option input {
-            margin-right: 15px;
-            accent-color: var(--primary-color);
-            transform: scale(1.2);
-        }
-
-        .restaurant-info {
-            flex-grow: 1;
-        }
-
-        .restaurant-name {
-            font-weight: bold;
-            font-size: 1.05rem;
-            margin-bottom: 2px;
-        }
-
-        .maps-link {
-            font-size: 0.85rem;
-            color: #8b8b8b;
-            text-decoration: underline;
-        }
-
-        .submit-btn {
-            background-color: #25d366; /* WhatsApp Green */
-            color: white;
-            width: 100%;
-            margin-top: 15px;
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
-        }
-
-        .submit-btn:hover {
-            background-color: #20ba5a;
-        }
-    </style>
+.tdisp{display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:14px}
+.tdisp button{font:600 34px 'DM Sans';color:var(--sub);background:#fff;border:1px solid var(--line);border-radius:12px;padding:6px 14px;cursor:pointer}
+.tdisp button.on{color:var(--ink);background:#EEEAF5;border-color:var(--lav)}
+.tdisp .colon{font:600 30px 'DM Sans';color:var(--muted)}
+.ampm{display:flex;flex-direction:column;gap:4px;margin-left:6px}
+.ampm button{font:700 13px 'DM Sans';padding:7px 10px;border-radius:10px;color:var(--muted);background:#fff;border:1px solid var(--line);cursor:pointer}
+.ampm button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.clock{position:relative;width:min(260px,100%);aspect-ratio:1;margin:0 auto;border-radius:50%;background:#fff;border:1px solid var(--line);touch-action:none;cursor:pointer;box-shadow:inset 0 0 0 8px #F8F7FA}
+.clock .n{position:absolute;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:500 15px 'DM Sans';color:var(--muted);pointer-events:none;border:2px solid transparent}
+.clock .n.sel{border-color:var(--red);color:var(--ink);font-weight:700;background:rgba(223,164,184,.25)}
+.hand{position:absolute;left:50%;top:50%;width:2px;background:var(--lav);transform-origin:50% 0;pointer-events:none;opacity:.7}
+.hub{position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:var(--blue);pointer-events:none}
+.thint{text-align:center;color:var(--sub);font-size:13px;margin-top:10px}
+textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:14px;padding:12px;font:15px 'DM Sans';color:var(--ink);background:#fff;resize:vertical}
+textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
+.err{color:var(--red);font-size:14px;min-height:20px;margin:12px 0 4px;font-weight:500}
+.empty{color:#D8DFEA;text-align:center;padding:30px 0}
+@media(max-width:400px){.pic{width:70px;height:70px}.card{padding:24px 16px}.clock .n{width:34px;height:34px;margin:-17px 0 0 -17px;font-size:14px}}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="container">
-    <!-- SCREEN 1: THE PROPOSAL -->
-    <div id="screen1" class="screen active">
-        <h2>Will you go on a date with me? 🥺🌻</h2>
-        <p>I set up this little space because I want to take you out. You have to give an answer below...</p>
-        <div class="btn-group">
-            <button id="yesBtn" onclick="goToScreen(2)">YES! 💖</button>
-            <button id="noBtn" id="noBtn">No</button>
-        </div>
+<!-- SCREEN 1: WELCOME -->
+<div id="screen1" class="screen active">
+  <div class="card">
+    <div class="label"><b>01</b>FOR YOU<span class="dot"></span></div>
+    <h1>Advance happy birthday, <span id="hisName">babe</span>. <span class="heart">♥</span></h1>
+    <div class="love">
+      <p>Yeah baby, I know we're too busy to go out these days, and our schedules just won't match on the exact day.</p>
+      <p>But I still want to celebrate your birthday with you, even if it's not on the exact date.</p>
+      <p>So I'm giving you the liberty to plan the day. It's your day after all.</p>
+      <p class="sig">— Your favourite person</p>
+    </div>
+    <button class="btn" onclick="go(2)">Plan my birthday</button>
+  </div>
+</div>
+
+<!-- SCREEN 2: PICK -->
+<div id="screen2" class="screen">
+  <div class="top">
+    <div class="label" style="color:#D8DFEA"><b>02</b>PICK YOUR DAY</div>
+    <h2>What do you feel like?</h2>
+    <p class="lead">Add a restaurant, an activity, or a few of each.</p>
+  </div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" data-f="all">All</button>
+    <button class="tab" data-f="restaurant">Restaurants</button>
+    <button class="tab" data-f="activity">Activities</button>
+  </div>
+  <div id="list"></div>
+</div>
+
+<!-- SCREEN 3: DATE, TIME, SEND -->
+<div id="screen3" class="screen">
+  <div class="card">
+    <div class="label"><b>03</b>ONE LAST THING</div>
+    <h2>Lock it in</h2>
+    <p class="lead">Check your picks, then choose the date and time.</p>
+    <div class="summary"><h3>Your picks</h3><ul id="sumList"></ul></div>
+
+    <span class="fl">Date</span>
+    <div class="cal">
+      <div class="calhead"><button id="prev" aria-label="Previous month">‹</button><b id="monthLabel"></b><button id="next" aria-label="Next month">›</button></div>
+      <div class="grid" id="dows"></div>
+      <div class="grid" id="days"></div>
     </div>
 
-    <!-- SCREEN 2: DATE & TIME -->
-    <div id="screen2" class="screen">
-        <h2>Yay! Lock in the time ⏰</h2>
-        <p>Pick a date and time that perfectly fits your schedule:</p>
-        
-        <label style="display:block; text-align:left; font-weight:bold;">Select Date:</label>
-        <input type="date" id="dateInput" required>
+    <span class="fl">Time</span>
+    <div class="tdisp"><button id="hBtn" class="on">--</button><span class="colon">:</span><button id="mBtn">--</button>
+      <div class="ampm"><button id="amBtn" class="on">AM</button><button id="pmBtn">PM</button></div></div>
+    <div class="clock" id="clock"><div class="hand" id="hand"></div><div class="hub"></div></div>
+    <p class="thint" id="thint">Tap the hour, then drag for the exact minute</p>
 
-        <label style="display:block; text-align:left; font-weight:bold;">Select Time:</label>
-        <input type="time" id="timeInput" required>
+    <span class="fl">Anything else you want? (optional)</span>
+    <textarea id="note" placeholder="Write it here"></textarea>
 
-        <button id="yesBtn" style="width: 100%;" onclick="validateScreen2()">Next: Choose Food! 🍕</button>
-    </div>
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn blush" onclick="send()">Send me your plan</button>
+    <button class="link" onclick="go(2)">Back to my picks</button>
+  </div>
+</div>
 
-    <!-- SCREEN 3: FOOD SELECTION -->
-    <div id="screen3" class="screen">
-        <h2>Where are we heading? 🗺️</h2>
-        <p>Pick the vibe you're feeling for this date:</p>
+</div>
 
-        <div class="category-title">✨ Our Favorites</div>
-        
-        <!-- Restaurant 1 -->
-        <label class="restaurant-option">
-            <input type="radio" name="restaurant" value="Our Favorite Cafe Place" checked>
-            <div class="restaurant-info">
-                <div class="restaurant-name">Our Favorite Spot ☕</div>
-                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
-            </div>
-        </label>
-
-        <div class="category-title">🚀 Try Something New</div>
-        
-        <!-- Restaurant 2 -->
-        <label class="restaurant-option">
-            <input type="radio" name="restaurant" value="That New Pasta Place">
-            <div class="restaurant-info">
-                <div class="restaurant-name">The New Pasta Place 🍝</div>
-                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
-            </div>
-        </label>
-
-        <!-- Restaurant 3 -->
-        <label class="restaurant-option">
-            <input type="radio" name="restaurant" value="The Aesthetic Roof Top">
-            <div class="restaurant-info">
-                <div class="restaurant-name">The Aesthetic Rooftop 🌅</div>
-                <a href="https://maps.google.com" target="_blank" class="maps-link" onclick="event.stopPropagation();">View on Google Maps</a>
-            </div>
-        </label>
-
-        <button class="submit-btn" onclick="sendToWhatsApp()">Send Me Your Choices! 🎉</button>
-    </div>
+<div class="cartbar" id="cartbar">
+  <span><i></i><em id="count" style="font-style:normal">0 picked</em></span>
+  <button onclick="go(3)">Next: set the date</button>
 </div>
 
 <script>
-    // Screen Transition Engine
-    function goToScreen(screenNum) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-        document.getElementById(`screen${screenNum}`).classList.add('active');
-    }
+/* =====================================================
+   EDIT THIS PART
+   ===================================================== */
 
-    function validateScreen2() {
-        const d = document.getElementById('dateInput').value;
-        const t = document.getElementById('timeInput').value;
-        if(!d || !t) {
-            alert("Don't skip! Please pick a date and time ");
-            return;
-        }
-        goToScreen(3);
-    }
+// Your WhatsApp number. Country code, no spaces, no '+'.
+const MY_PHONE = "8801712345678";
 
-    // The Cheeky Trick "No" Button Interaction
-    const noBtn = document.getElementById('noBtn');
-    
-    // Desktop hover state
-    noBtn.addEventListener('mouseenter', () => {
-        noBtn.innerText = " :'( ";
-    });
-    noBtn.addEventListener('mouseleave', () => {
-        noBtn.innerText = "No";
-    });
+// His name (shows on the first screen)
+const HIS_NAME = "Babe";
 
-    // Mobile fallback: if they tap it, make it run away or swap to Yes!
-    noBtn.addEventListener('touchstart', (e) => {
-        e.preventDefault(); // Stop the click
-        noBtn.innerText = "😢 (ಥ_ಥ)";
-        // Make the yes button grow massive to intercept the next tap!
-        document.getElementById('yesBtn').style.transform = "scale(1.4)";
-    });
+// type: "restaurant" or "activity"
+// img  = photo of the place's sign/board. Put the file in an "images" folder
+//        next to index.html, e.g. "images/r1.jpg". Leave "" for a placeholder.
+// note = your short note.  maps = Google Maps link ("" hides it)
+const ITEMS = [
+  { id:"r1", type:"restaurant", name:"Restaurant Name 1", note:"Write your short note here. Why you picked it, what to order.", img:"images/r1.jpg", maps:"https://maps.google.com" },
+  { id:"r2", type:"restaurant", name:"Restaurant Name 2", note:"Write your short note here.", img:"images/r2.jpg", maps:"https://maps.google.com" },
+  { id:"r3", type:"restaurant", name:"Restaurant Name 3", note:"Write your short note here.", img:"images/r3.jpg", maps:"https://maps.google.com" },
+  { id:"a1", type:"activity", name:"Military Museum", note:"Write your short note here.", img:"images/a1.jpg", maps:"https://maps.google.com" },
+  { id:"a2", type:"activity", name:"Toggi Fun World", note:"Write your short note here.", img:"images/a2.jpg", maps:"https://maps.google.com" },
+  { id:"a3", type:"activity", name:"Activity Name 3", note:"Write your short note here.", img:"", maps:"" }
+];
 
-    // Send data straight to your WhatsApp
-    function sendToWhatsApp() {
-        const date = document.getElementById('dateInput').value;
-        const time = document.getElementById('timeInput').value;
-        const location = document.querySelector('input[name="restaurant"]:checked').value;
+/* =====================================================
+   Code below: no need to edit
+   ===================================================== */
+const $ = id => document.getElementById(id);
+const picked = new Set();
+let filter = "all", screen = 1, selDate = null, selTime = null;
+const today = new Date(); today.setHours(0,0,0,0);
+let view = new Date(today.getFullYear(), today.getMonth(), 1);
 
-        const message = `Hey! I filled out your date invite Form 🥰%0A%0A` +
-                        `📅 Date: ${date}%0A` +
-                        `⏰ Time: ${time}%0A` +
-                        `📍 Vibe: ${location}%0A%0A` +
-                        `See you there! ✨`;
+$("hisName").textContent = HIS_NAME;
+const esc = t => { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="86" height="86"><rect width="86" height="86" fill="#EEEAF5"/><text x="43" y="52" font-size="30" text-anchor="middle" fill="#DFA4B8">♥</text></svg>');
 
-        // ⚠️ EDIT THIS LINE: Put your real phone number here! 
-        // Example format: "8801712345678" (Include country code, NO spaces, NO '+' sign)
-        const myPhoneNumber = "8801789887575"; 
+function go(n){
+  screen = n;
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  $("screen"+n).classList.add("active");
+  if (n === 3) { $("sumList").innerHTML = ITEMS.filter(i => picked.has(i.id)).map(i => `<li>${esc(i.name)}</li>`).join(""); drawCal(); }
+  cart();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
 
-        window.open(`https://wa.me/${myPhoneNumber}?text=${message}`, '_blank');
-    }
+/* ---- list ---- */
+function card(i){
+  const on = picked.has(i.id);
+  return `<div class="item ${on?"selected":""}" data-id="${i.id}">
+    <img class="pic" src="${esc(i.img||"")}" alt="${esc(i.name)} sign" loading="lazy" onerror="this.onerror=null;this.src=PLACEHOLDER">
+    <div class="info"><div class="name">${esc(i.name)}</div><p class="note">${esc(i.note)}</p>
+    ${i.maps?`<a class="map" href="${esc(i.maps)}" target="_blank" rel="noopener">View on Google Maps ↗</a>`:""}</div>
+    <button class="add">${on?"Added ✓":"Add"}</button></div>`;
+}
+function render(){
+  let h = "";
+  [["restaurant","Restaurants"],["activity","Activities"]].forEach(([t,title])=>{
+    if (filter !== "all" && filter !== t) return;
+    const items = ITEMS.filter(i => i.type === t);
+    if (!items.length) return;
+    if (filter === "all") h += `<div class="cat">${title}</div>`;
+    h += items.map(card).join("");
+  });
+  $("list").innerHTML = h || `<p class="empty">Nothing here yet.</p>`;
+}
+$("list").addEventListener("click", e => {
+  if (e.target.closest("a")) return;
+  const c = e.target.closest(".item"); if (!c) return;
+  const id = c.dataset.id;
+  picked.has(id) ? picked.delete(id) : picked.add(id);
+  const on = picked.has(id);
+  c.classList.toggle("selected", on);
+  c.querySelector(".add").textContent = on ? "Added ✓" : "Add";
+  cart();
+});
+$("tabs").addEventListener("click", e => {
+  const t = e.target.closest(".tab"); if (!t) return;
+  filter = t.dataset.f;
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x === t));
+  render();
+});
+function cart(){
+  $("count").textContent = picked.size + " picked";
+  $("cartbar").classList.toggle("show", screen === 2 && picked.size > 0);
+}
+
+/* ---- calendar ---- */
+$("dows").innerHTML = "SMTWTFS".split("").map(d => `<div class="dow">${d}</div>`).join("");
+function drawCal(){
+  const y = view.getFullYear(), m = view.getMonth();
+  $("monthLabel").textContent = view.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+  $("prev").disabled = (y === today.getFullYear() && m === today.getMonth());
+  let h = "";
+  for (let i = 0; i < new Date(y,m,1).getDay(); i++) h += "<span></span>";
+  for (let d = 1; d <= new Date(y,m+1,0).getDate(); d++){
+    const dt = new Date(y,m,d), past = dt < today;
+    const cls = ["day", dt.getTime()===today.getTime()?"today":"", selDate && dt.getTime()===selDate.getTime()?"sel":""].join(" ");
+    h += `<button class="${cls}" data-d="${d}" ${past?"disabled":""}>${d}</button>`;
+  }
+  $("days").innerHTML = h;
+}
+$("prev").onclick = () => { view = new Date(view.getFullYear(), view.getMonth()-1, 1); drawCal(); };
+$("next").onclick = () => { view = new Date(view.getFullYear(), view.getMonth()+1, 1); drawCal(); };
+$("days").addEventListener("click", e => {
+  const b = e.target.closest(".day"); if (!b || b.disabled) return;
+  selDate = new Date(view.getFullYear(), view.getMonth(), +b.dataset.d);
+  drawCal();
+});
+
+/* ---- time (clock) ---- */
+const fmt = v => { const [h,m] = v.split(":").map(Number); return (h%12||12) + ":" + String(m).padStart(2,"0") + " " + (h>=12?"PM":"AM"); };
+let mode = "h", cH = null, cM = 0, ap = "PM";
+const clock = $("clock");
+function drawClock(){
+  clock.querySelectorAll(".n").forEach(n => n.remove());
+  for (let i = 1; i <= 12; i++){
+    const val = mode === "h" ? i : (i % 12) * 5;
+    const a = i * 30 * Math.PI / 180, d = document.createElement("div");
+    d.className = "n" + ((mode === "h" ? cH === i : cM === val) ? " sel" : "");
+    d.textContent = mode === "h" ? i : String(val).padStart(2,"0");
+    d.style.left = (50 + 38.46*Math.sin(a)) + "%"; d.style.top = (50 - 38.46*Math.cos(a)) + "%";
+    clock.appendChild(d);
+  }
+  const deg = mode === "h" ? (cH ? cH*30 : null) : cM*6, hand = $("hand");
+  hand.style.display = deg === null ? "none" : "block";
+  if (deg !== null){ hand.style.height = "31.5%"; hand.style.transform = `rotate(${deg+180}deg)`; }
+  $("hBtn").textContent = cH ? cH : "--";
+  $("mBtn").textContent = cH ? String(cM).padStart(2,"0") : "--";
+  $("hBtn").classList.toggle("on", mode === "h"); $("mBtn").classList.toggle("on", mode === "m");
+  $("amBtn").classList.toggle("on", ap === "AM"); $("pmBtn").classList.toggle("on", ap === "PM");
+  if (cH){ let h = cH % 12; if (ap === "PM") h += 12; selTime = String(h).padStart(2,"0") + ":" + String(cM).padStart(2,"0"); }
+}
+function angleAt(e){
+  const r = clock.getBoundingClientRect();
+  const x = e.clientX - r.left - r.width/2, y = e.clientY - r.top - r.height/2;
+  return (Math.atan2(x, -y) * 180 / Math.PI + 360) % 360;
+}
+function setFrom(e){
+  const a = angleAt(e);
+  if (mode === "h") cH = Math.round(a/30) || 12; else cM = Math.round(a/6) % 60;
+  drawClock();
+}
+let drag = false;
+clock.addEventListener("pointerdown", e => { drag = true; clock.setPointerCapture(e.pointerId); setFrom(e); });
+clock.addEventListener("pointermove", e => { if (drag) setFrom(e); });
+clock.addEventListener("pointerup", () => {
+  if (!drag) return; drag = false;
+  if (mode === "h"){ mode = "m"; $("thint").textContent = "Now drag for the minutes (any minute works)"; drawClock(); }
+});
+$("hBtn").onclick = () => { mode = "h"; drawClock(); };
+$("mBtn").onclick = () => { mode = "m"; drawClock(); };
+$("amBtn").onclick = () => { ap = "AM"; drawClock(); };
+$("pmBtn").onclick = () => { ap = "PM"; drawClock(); };
+drawClock();
+
+/* ---- send ---- */
+function send(){
+  const err = $("err"); err.textContent = "";
+  if (!picked.size) { err.textContent = "Pick at least one thing first."; return; }
+  if (!selDate || !selTime) { err.textContent = "Please pick a date and a time."; return; }
+  const note = $("note").value.trim();
+  const plan = ITEMS.filter(i => picked.has(i.id)).map(i => `- ${i.name}`).join("\n");
+  const date = selDate.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  let msg = `Hey! I planned my birthday day.\n\nDate: ${date}\nTime: ${fmt(selTime)}\n\nMy plan:\n${plan}`;
+  if (note) msg += `\n\nNote: ${note}`;
+  msg += `\n\nSee you there!`;
+  window.open(`https://wa.me/${MY_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+}
+
+render(); cart();
 </script>
-
 </body>
 </html>

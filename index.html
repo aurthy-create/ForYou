@@ -39,7 +39,7 @@ h1{font-size:34px;margin-bottom:16px}h2{font-size:28px;margin-bottom:8px}
 .item{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;margin-bottom:12px;cursor:pointer;transition:.2s;box-shadow:0 8px 24px rgba(15,25,35,.18)}
 .item:hover{border-color:var(--blush)}
 .item.selected{border-color:var(--blush);box-shadow:0 0 0 2px var(--blush),0 8px 24px rgba(15,25,35,.18)}
-.pic{width:86px;height:86px;flex:none;border-radius:12px;object-fit:cover;background:#EEEAF5;border:1px solid var(--line)}
+.pic{width:110px;aspect-ratio:4/3;height:auto;align-self:flex-start;flex:none;border-radius:12px;object-fit:cover;background:#EEEAF5;border:1px solid var(--line)}
 .info{flex:1;min-width:0;display:flex;flex-direction:column}
 .name{font-weight:700;font-size:16.5px;color:var(--ink)}
 .note{font-size:13.5px;color:var(--muted);line-height:1.45;margin:3px 0 6px}
@@ -84,7 +84,7 @@ textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:1
 textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
 .err{color:var(--red);font-size:14px;min-height:20px;margin:12px 0 4px;font-weight:500}
 .empty{color:#D8DFEA;text-align:center;padding:30px 0}
-@media(max-width:400px){.pic{width:70px;height:70px}.card{padding:24px 16px}.clock .n{width:34px;height:34px;margin:-17px 0 0 -17px;font-size:14px}}
+@media(max-width:400px){.pic{width:92px}.card{padding:24px 16px}.clock .n{width:34px;height:34px;margin:-17px 0 0 -17px;font-size:14px}}
 </style>
 </head>
 <body>
@@ -99,9 +99,9 @@ textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
       <p>Yeah baby, I know we're too busy to go out these days, and our schedules just won't match on the exact day.</p>
       <p>But I still want to celebrate your birthday with you, even if it's not on the exact date.</p>
       <p>So I'm giving you the liberty to plan the day. It's your day after all.</p>
-      <p class="sig">— The luckiest one </p>
+      <p class="sig">— Your favourite person</p>
     </div>
-    <button class="btn" onclick="go(2)">Plan my day</button>
+    <button class="btn" onclick="go(2)">Plan my birthday</button>
   </div>
 </div>
 
@@ -163,22 +163,18 @@ textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
    ===================================================== */
 
 // Your WhatsApp number. Country code, no spaces, no '+'.
-const MY_PHONE = "8801789887575";
+const MY_PHONE = "8801712345678";
 
 // His name (shows on the first screen)
-const HIS_NAME = "Baby";
+const HIS_NAME = "Babe";
 
 // type: "restaurant" or "activity"
 // img  = photo of the place's sign/board. Put the file in an "images" folder
 //        next to index.html, e.g. "images/r1.jpg". Leave "" for a placeholder.
 // note = your short note.  maps = Google Maps link ("" hides it)
 const ITEMS = [
-  { id:"r1", type:"restaurant", name:"Restaurant Name 1", note:"Write your short note here. Why you picked it, what to order.", img:"images/r1.jpg", maps:"https://maps.google.com" },
-  { id:"r2", type:"restaurant", name:"Restaurant Name 2", note:"Write your short note here.", img:"images/r2.jpg", maps:"https://maps.google.com" },
-  { id:"r3", type:"restaurant", name:"Restaurant Name 3", note:"Write your short note here.", img:"images/r3.jpg", maps:"https://maps.google.com" },
-  { id:"a1", type:"activity", name:"Military Museum", note:"Write your short note here.", img:"images/a1.jpg", maps:"https://maps.google.com" },
-  { id:"a2", type:"activity", name:"Toggi Fun World", note:"Write your short note here.", img:"images/a2.jpg", maps:"https://maps.google.com" },
-  { id:"a3", type:"activity", name:"Activity Name 3", note:"Write your short note here.", img:"", maps:"" }
+  { id:"r1", type:"restaurant", name:"Khao San", note:"Safest and favest.", img:"khao-san.jpeg", maps:"https://share.google/qqwkaaHDmtA7ZHkpM" },
+  { id:"r2", type:"restaurant", name:"The Grove Bistro", note:"My top pick.", img:"the-grove-bistro.jpg", maps:"https://share.google/dycSIce9HSlMOL78j" }
 ];
 
 /* =====================================================
@@ -192,7 +188,7 @@ let view = new Date(today.getFullYear(), today.getMonth(), 1);
 
 $("hisName").textContent = HIS_NAME;
 const esc = t => { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
-const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="86" height="86"><rect width="86" height="86" fill="#EEEAF5"/><text x="43" y="52" font-size="30" text-anchor="middle" fill="#DFA4B8">♥</text></svg>');
+const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="90"><rect width="120" height="90" fill="#EEEAF5"/><text x="60" y="56" font-size="30" text-anchor="middle" fill="#DFA4B8">♥</text></svg>');
 
 function go(n){
   screen = n;

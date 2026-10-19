@@ -169,12 +169,46 @@ const MY_PHONE = "8801712345678";
 const HIS_NAME = "Babe";
 
 // type: "restaurant" or "activity"
-// img  = photo of the place's sign/board. Put the file in an "images" folder
-//        next to index.html, e.g. "images/r1.jpg". Leave "" for a placeholder.
+// img  = photo of the place's sign/board, saved next to index.html.
+//        Leave "" for a placeholder.
 // note = your short note.  maps = Google Maps link ("" hides it)
 const ITEMS = [
-  { id:"r1", type:"restaurant", name:"Khao San", note:"Safest and favest.", img:"khao-san.jpeg", maps:"https://share.google/qqwkaaHDmtA7ZHkpM" },
-  { id:"r2", type:"restaurant", name:"The Grove Bistro", note:"My top pick.", img:"the-grove-bistro.jpg", maps:"https://share.google/dycSIce9HSlMOL78j" }
+  /* ---------- RESTAURANTS ---------- */
+  { id:"r1",  type:"restaurant", name:"Khao San", note:"Safest and favest.", img:"khao-san.jpeg", maps:"https://share.google/qqwkaaHDmtA7ZHkpM" },
+  { id:"r2",  type:"restaurant", name:"The Grove Bistro", note:"My top pick, very fancy.", img:"the-grove-bistro.jpg", maps:"https://share.google/dycSIce9HSlMOL78j" },
+  { id:"r3",  type:"restaurant", name:"Evviva Italian Ristorante", note:"Another of my top picks, also lowkey fancy.", img:"evviva-italian-ristorante.jpeg", maps:"https://share.google/UGxQ9o7iozwVTFKdJ" },
+  { id:"r4",  type:"restaurant", name:"PEYALA", note:"Your favorite.", img:"peyala.jpeg", maps:"https://share.google/2M70f9Ynn2Rfs30qw" },
+  { id:"r5",  type:"restaurant", name:"Woodhouse Grill", note:"What can go wrong with steak?", img:"woodhouse-grill.jpeg", maps:"https://share.google/60Ks9BvILCAWigZKG" },
+  { id:"r6",  type:"restaurant", name:"Mamagocho", note:"Heard they got the best food.", img:"mamagocho.jpeg", maps:"https://share.google/8dCwoNHgB8kYtElGd" },
+  { id:"r7",  type:"restaurant", name:"Izakaya", note:"If you want a sushi boat.", img:"izakaya.jpeg", maps:"https://share.google/x7bN8a7trP5MQbsNj" },
+  { id:"r8",  type:"restaurant", name:"Iceland Coffee", note:"Either way we'll be going there someday.", img:"iceland-coffee.jpeg", maps:"https://share.google/OJ4VWpwBJZmfBwR0o" },
+  { id:"r9",  type:"restaurant", name:"Fools Diner", note:"Since you liked them so much.", img:"fools-diner.jpeg", maps:"https://share.google/1odx20LZMy9RDpuZJ" },
+  { id:"r10", type:"restaurant", name:"SLAW Bistro", note:"Fancyyyy with spectacular food.", img:"slaw-bistro.jpeg", maps:"https://share.google/ZqVsmSQ0iINjDvkWR" },
+  { id:"r11", type:"restaurant", name:"The White Canary Café", note:"It's got 2 locations btw.", img:"the-white-canary-café.jpeg", maps:"https://share.google/AkGYyCUNUrS5EBwSY" },
+  { id:"r12", type:"restaurant", name:"Chef's Table Courtside", note:"It's an activity itself.", img:"chefs-table-courtside.jpeg", maps:"https://share.google/gyaiF5q0dNV5lWXm9" },
+  { id:"r13", type:"restaurant", name:"Centrum Bashundhara", note:"They have a really fancy flower shop.", img:"centrum-bashundhara.jpeg", maps:"https://share.google/SjX5Js9wKmnFxkGzm" },
+  { id:"r14", type:"restaurant", name:"The Green Lounge", note:"In case we're too busy to go out of Bashundhara.", img:"the-green-lounge.jpeg", maps:"https://share.google/9S3HE7WA4Vr7SZtus" },
+  { id:"r15", type:"restaurant", name:"Pinewood: Cafe + Kitchen", note:"It's just the location.....", img:"pinewood-cafe-kitchen.jpeg", maps:"https://share.google/k3pYBwKuN0hIVhQp6" },
+  { id:"r16", type:"restaurant", name:"Tajine", note:"I would gladly travel to Dmd if you want your favorite biriyani.", img:"tajine.jpeg", maps:"https://share.google/5tbayQIyMPxIIATJ6" },
+  { id:"r17", type:"restaurant", name:"Tabaq Coffee", note:"For the bday cake (slice).", img:"tabaq-coffee.jpeg", maps:"https://share.google/QIpCxpd9wDYZB24sh" },
+  { id:"r18", type:"restaurant", name:"Emerald Bakery", note:"Very Instagramable place.", img:"emerald-bakery.jpeg", maps:"https://share.google/53J1iZWuHGVXw3oHW" },
+  { id:"r19", type:"restaurant", name:"Tu do Restaurant", note:"Very Instagramable place.", img:"tudo.jpeg", maps:"https://share.google/t11LrJmAGyFGpaGge" },
+  { id:"r20", type:"restaurant", name:"Ciao", note:"In case you want to try more of their pastas.", img:"ciao.jpeg", maps:"https://share.google/Bxvangc1FNUwihHTG" },
+  { id:"r21", type:"restaurant", name:"BFC", note:"Classic.", img:"bfclogo.jpeg", maps:"https://share.google/7oRGJ8BLhkhlFA3vN" },
+  { id:"r22", type:"restaurant", name:"VERTE", note:"They've got the best lava cake.", img:"verte.jpeg", maps:"https://share.google/hoTjpc6fkGWHItVCP" },
+
+  /* ---------- ACTIVITIES ---------- */
+  { id:"a1",  type:"activity", name:"Toggi Fun World", note:"This could be a fun activity.", img:"toggi.jpeg", maps:"https://share.google/oRdA45QPdXTuVVpij" },
+  { id:"a2",  type:"activity", name:"Playard Centrepoint", note:"This could be a fun activity.", img:"playard.jpeg", maps:"https://share.google/712ecebsI6SVfWmJT" },
+  { id:"a3",  type:"activity", name:"Zero Gravity", note:"This could be a fun activity.", img:"zerogravity.jpeg", maps:"https://share.google/1eit183tR1TjQWEzs" },
+  { id:"a4",  type:"activity", name:"GoKart Courtside", note:"This also could be a fun activity.", img:"gokart.jpeg", maps:"https://share.google/IpiRCViieeDzHpBvH" },
+  { id:"a5",  type:"activity", name:"Clay Station Dhaka", note:"This could be a fun (messy) activity.", img:"claystation.jpeg", maps:"https://share.google/LHJ0OOfJ3VjANMYRq" },
+  { id:"a6",  type:"activity", name:"Air Force BASECAMP", note:"A very physical activity.", img:"basecamp.jpeg", maps:"https://share.google/ETqK2A8MJiPgxIGud" },
+  { id:"a7",  type:"activity", name:"Bangladesh Military Museum", note:"You can frfr go there.", img:"militarymuseum.jpeg", maps:"https://share.google/YZXAh4nCKVrSNWgTW" },
+  { id:"a8",  type:"activity", name:"Future World", note:"This one is the nearest.", img:"jfp.jpeg", maps:"https://share.google/rE0QVuDm1SiY1Ofbt" },
+  { id:"a9",  type:"activity", name:"Marvel Land Arcade", note:"Maybe this time we can play and win and take successful pictures in the photobooth.", img:"marvelland.jpeg", maps:"https://share.google/uqRItgmiLEs4VUB2D" },
+  { id:"a10", type:"activity", name:"VERTE Vortex", note:"They've got some good games.", img:"vertevortex.jpeg", maps:"https://vertevortex.com/" },
+  { id:"a11", type:"activity", name:"Stay in", note:"Like, just staying at home cuddling.", img:"stayhome.jpeg", maps:"" }
 ];
 
 /* =====================================================

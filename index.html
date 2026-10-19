@@ -100,6 +100,13 @@ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),lin
 .dot{animation:pulse 2.4s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
 .btn.done{background:var(--red);color:#fff}
+.nameRow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fav{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--red);background:rgba(255,70,85,.1);border:1px solid rgba(255,70,85,.35);border-radius:999px;padding:2px 8px;white-space:nowrap}
+.customBox{background:#fff;border:1.5px dashed var(--lav);border-radius:18px;padding:16px;margin:20px 0 12px;box-shadow:0 8px 24px rgba(15,25,35,.18)}
+.customBox h3{font-size:16.5px;color:var(--ink);margin-bottom:4px}
+.customBox p{font-size:13.5px;color:var(--muted);margin-bottom:10px;line-height:1.45}
+.customBox input{width:100%;border:1px solid var(--line);border-radius:12px;padding:12px;font:16px 'DM Sans';color:var(--ink);background:#fff}
+.customBox input:focus{outline:2px solid var(--lav);outline-offset:1px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media(max-width:400px){.pic{width:92px}.card{padding:24px 16px}.clock .n{width:34px;height:34px;margin:-17px 0 0 -17px;font-size:14px}}
 </style>
@@ -111,13 +118,14 @@ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),lin
 <div id="screen1" class="screen active">
   <div class="card">
     <div class="label"><b>01</b>FOR YOU<span class="dot"></span></div>
-    <h1>Advance happy birthday, <span id="hisName">babe</span>. <span class="heart">♥</span></h1>
+    <h1>Advance happy birthday, <span class="hisName">baby</span>. <span class="heart">♥</span></h1>
     <div class="love">
       <p>Yeah baby, I know we're too busy to go out these days, and our schedules just won't match on the exact day.</p>
       <p>But I still want to celebrate your birthday with you, even if it's not on the exact date.</p>
       <p>So I'm giving you the liberty to plan the day. It's your day after all.</p>
       <p class="sig">— Your favourite person</p>
     </div>
+    <p class="lead" style="margin:-6px 0 18px">No wrong answers. Pick whatever feels right.</p>
     <button class="btn" onclick="go(2)">Plan my birthday</button>
   </div>
 </div>
@@ -126,7 +134,7 @@ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),lin
 <div id="screen2" class="screen">
   <div class="top">
     <div class="label" style="color:#D8DFEA"><b>02</b>PICK YOUR DAY</div>
-    <h2>What do you feel like?</h2>
+    <h2>What do you feel like, <span class="hisName"></span>?</h2>
     <p class="lead">Add a restaurant, an activity, or a few of each.</p>
   </div>
   <div class="tabs" id="tabs">
@@ -135,13 +143,18 @@ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),lin
     <button class="tab" data-f="activity">Activities</button>
   </div>
   <div id="list"></div>
+  <div class="customBox">
+    <h3>Something else in mind?</h3>
+    <p>Not on the list? Tell me what you want.</p>
+    <input id="customInput" type="text" placeholder="Your idea" maxlength="150">
+  </div>
 </div>
 
 <!-- SCREEN 3: DATE, TIME, SEND -->
 <div id="screen3" class="screen">
   <div class="card">
     <div class="label"><b>03</b>ONE LAST THING</div>
-    <h2>Lock it in</h2>
+    <h2>Lock it in, <span class="hisName"></span></h2>
     <p class="lead">Check your picks, then choose the date and time.</p>
     <div class="summary"><h3>Your picks</h3><ul id="sumList"></ul></div>
 
@@ -180,38 +193,37 @@ background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),lin
    ===================================================== */
 
 // Your WhatsApp number. Country code, no spaces, no '+'.
-const MY_PHONE = "8801712345678";
+const MY_PHONE = "8801789887575";
 
 // His name (shows on the first screen)
-const HIS_NAME = "Babe";
-
+const HIS_NAME = "Baby";
 // type: "restaurant" or "activity"
 // img  = photo of the place's sign/board, saved next to index.html.
 //        Leave "" for a placeholder.
 // note = your short note.  maps = Google Maps link ("" hides it)
 const ITEMS = [
   /* ---------- RESTAURANTS ---------- */
-  { id:"r1",  type:"restaurant", name:"Khao San", note:"Safest and favest.", img:"khao-san.jpeg", maps:"https://share.google/qqwkaaHDmtA7ZHkpM" },
+  { id:"r1",  type:"restaurant", fav:true, name:"Khao San", note:"Safest and favest.", img:"khao-san.jpeg", maps:"https://share.google/qqwkaaHDmtA7ZHkpM" },
   { id:"r2",  type:"restaurant", name:"The Grove Bistro", note:"My top pick, very fancy.", img:"the-grove-bistro.jpg", maps:"https://share.google/dycSIce9HSlMOL78j" },
   { id:"r3",  type:"restaurant", name:"Evviva Italian Ristorante", note:"Another of my top picks, also lowkey fancy.", img:"evviva-italian-ristorante.jpeg", maps:"https://share.google/UGxQ9o7iozwVTFKdJ" },
-  { id:"r4",  type:"restaurant", name:"PEYALA", note:"Your favorite.", img:"peyala.jpeg", maps:"https://share.google/2M70f9Ynn2Rfs30qw" },
+  { id:"r4",  type:"restaurant", fav:true, name:"PEYALA", note:"Your favorite.", img:"peyala.jpeg", maps:"https://share.google/2M70f9Ynn2Rfs30qw" },
   { id:"r5",  type:"restaurant", name:"Woodhouse Grill", note:"What can go wrong with steak?", img:"woodhouse-grill.jpeg", maps:"https://share.google/60Ks9BvILCAWigZKG" },
   { id:"r6",  type:"restaurant", name:"Mamagocho", note:"Heard they got the best food.", img:"mamagocho.jpeg", maps:"https://share.google/8dCwoNHgB8kYtElGd" },
   { id:"r7",  type:"restaurant", name:"Izakaya", note:"If you want a sushi boat.", img:"izakaya.jpeg", maps:"https://share.google/x7bN8a7trP5MQbsNj" },
   { id:"r8",  type:"restaurant", name:"Iceland Coffee", note:"Either way we'll be going there someday.", img:"iceland-coffee.jpeg", maps:"https://share.google/OJ4VWpwBJZmfBwR0o" },
-  { id:"r9",  type:"restaurant", name:"Fools Diner", note:"Since you liked them so much.", img:"fools-diner.jpeg", maps:"https://share.google/1odx20LZMy9RDpuZJ" },
+  { id:"r9",  type:"restaurant", fav:true, name:"Fools Diner", note:"Since you liked them so much.", img:"fools-diner.jpeg", maps:"https://share.google/1odx20LZMy9RDpuZJ" },
   { id:"r10", type:"restaurant", name:"SLAW Bistro", note:"Fancyyyy with spectacular food.", img:"slaw-bistro.jpeg", maps:"https://share.google/ZqVsmSQ0iINjDvkWR" },
   { id:"r11", type:"restaurant", name:"The White Canary Café", note:"It's got 2 locations btw.", img:"the-white-canary-café.jpeg", maps:"https://share.google/AkGYyCUNUrS5EBwSY" },
   { id:"r12", type:"restaurant", name:"Chef's Table Courtside", note:"It's an activity itself.", img:"chefs-table-courtside.jpeg", maps:"https://share.google/gyaiF5q0dNV5lWXm9" },
   { id:"r13", type:"restaurant", name:"Centrum Bashundhara", note:"They have a really fancy flower shop.", img:"centrum-bashundhara.jpeg", maps:"https://share.google/SjX5Js9wKmnFxkGzm" },
   { id:"r14", type:"restaurant", name:"The Green Lounge", note:"In case we're too busy to go out of Bashundhara.", img:"the-green-lounge.jpeg", maps:"https://share.google/9S3HE7WA4Vr7SZtus" },
   { id:"r15", type:"restaurant", name:"Pinewood: Cafe + Kitchen", note:"It's just the location.....", img:"pinewood-cafe-kitchen.jpeg", maps:"https://share.google/k3pYBwKuN0hIVhQp6" },
-  { id:"r16", type:"restaurant", name:"Tajine", note:"I would gladly travel to Dmd if you want your favorite biriyani.", img:"tajine.jpeg", maps:"https://share.google/5tbayQIyMPxIIATJ6" },
+  { id:"r16", type:"restaurant", fav:true, name:"Tajine", note:"I would gladly travel to Dmd if you want your favorite biriyani.", img:"tajine.jpeg", maps:"https://share.google/5tbayQIyMPxIIATJ6" },
   { id:"r17", type:"restaurant", name:"Tabaq Coffee", note:"For the bday cake (slice).", img:"tabaq-coffee.jpeg", maps:"https://share.google/QIpCxpd9wDYZB24sh" },
   { id:"r18", type:"restaurant", name:"Emerald Bakery", note:"Very Instagramable place.", img:"emerald-bakery.jpeg", maps:"https://share.google/53J1iZWuHGVXw3oHW" },
   { id:"r19", type:"restaurant", name:"Tu do Restaurant", note:"Very Instagramable place.", img:"tudo.jpeg", maps:"https://share.google/t11LrJmAGyFGpaGge" },
   { id:"r20", type:"restaurant", name:"Ciao", note:"In case you want to try more of their pastas.", img:"ciao.jpeg", maps:"https://share.google/Bxvangc1FNUwihHTG" },
-  { id:"r21", type:"restaurant", name:"BFC", note:"Classic.", img:"bfclogo.jpeg", maps:"https://share.google/7oRGJ8BLhkhlFA3vN" },
+  { id:"r21", type:"restaurant", fav:true, name:"BFC", note:"Classic.", img:"bfclogo.jpeg", maps:"https://share.google/7oRGJ8BLhkhlFA3vN" },
   { id:"r22", type:"restaurant", name:"VERTE", note:"They've got the best lava cake.", img:"verte.jpeg", maps:"https://share.google/hoTjpc6fkGWHItVCP" },
 
   /* ---------- ACTIVITIES ---------- */
@@ -233,11 +245,11 @@ const ITEMS = [
    ===================================================== */
 const $ = id => document.getElementById(id);
 const picked = new Set();
-let filter = "all", screen = 1, selDate = null, selTime = null;
+let filter = "all", screen = 1, selDate = null, selTime = null, customPick = "";
 const today = new Date(); today.setHours(0,0,0,0);
 let view = new Date(today.getFullYear(), today.getMonth(), 1);
 
-$("hisName").textContent = HIS_NAME;
+document.querySelectorAll(".hisName").forEach(el => el.textContent = HIS_NAME);
 const esc = t => { const d = document.createElement("div"); d.textContent = t; return d.innerHTML; };
 const PLACEHOLDER = "data:image/svg+xml;utf8," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="120" height="90"><rect width="120" height="90" fill="#EEEAF5"/><text x="60" y="56" font-size="30" text-anchor="middle" fill="#DFA4B8">♥</text></svg>');
 
@@ -245,7 +257,7 @@ function go(n){
   screen = n;
   document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
   $("screen"+n).classList.add("active");
-  if (n === 3) { $("sumList").innerHTML = ITEMS.filter(i => picked.has(i.id)).map(i => `<li>${esc(i.name)}</li>`).join(""); drawCal(); }
+  if (n === 3) { $("sumList").innerHTML = ITEMS.filter(i => picked.has(i.id)).map(i => `<li>${esc(i.name)}</li>`).join("") + (customPick ? `<li>${esc(customPick)}</li>` : ""); drawCal(); }
   cart();
   window.scrollTo({top:0,behavior:"smooth"});
 }
@@ -255,7 +267,7 @@ function card(i){
   const on = picked.has(i.id);
   return `<div class="item ${on?"selected":""}" data-id="${i.id}">
     <img class="pic" src="${esc(i.img||"")}" alt="${esc(i.name)} sign" loading="lazy" onerror="this.onerror=null;this.src=PLACEHOLDER">
-    <div class="info"><div class="name">${esc(i.name)}</div><p class="note">${esc(i.note)}</p>
+    <div class="info"><div class="nameRow"><div class="name">${esc(i.name)}</div>${i.fav?`<span class="fav">Your favorite</span>`:""}</div><p class="note">${esc(i.note)}</p>
     ${i.maps?`<a class="map" href="${esc(i.maps)}" target="_blank" rel="noopener">View on Google ↗</a>`:""}</div>
     <button class="add">${on?"Added ✓":"Add"}</button></div>`;
 }
@@ -288,8 +300,9 @@ $("tabs").addEventListener("click", e => {
   render();
 });
 function cart(){
-  $("count").textContent = picked.size + " picked";
-  $("cartbar").classList.toggle("show", screen === 2 && picked.size > 0);
+  const n = picked.size + (customPick ? 1 : 0);
+  $("count").textContent = n + " picked";
+  $("cartbar").classList.toggle("show", screen === 2 && n > 0);
 }
 
 /* ---- calendar ---- */
@@ -364,10 +377,10 @@ drawClock();
 /* ---- send ---- */
 function send(){
   const err = $("err"); err.textContent = "";
-  if (!picked.size) { err.textContent = "Pick at least one thing first."; return; }
+  if (!picked.size && !customPick) { err.textContent = "Pick at least one thing first."; return; }
   if (!selDate || !selTime) { err.textContent = "Please pick a date and a time."; return; }
   const note = $("note").value.trim();
-  const plan = ITEMS.filter(i => picked.has(i.id)).map(i => `- ${i.name}`).join("\n");
+  const plan = [...ITEMS.filter(i => picked.has(i.id)).map(i => `- ${i.name}`), ...(customPick ? [`- Something else: ${customPick}`] : [])].join("\n");
   const date = selDate.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
   let msg = `Hey! I planned my birthday day.\n\nDate: ${date}\nTime: ${fmt(selTime)}\n\nMy plan:\n${plan}`;
   if (note) msg += `\n\nNote: ${note}`;
@@ -376,6 +389,8 @@ function send(){
   const b = $("sendBtn"); b.textContent = "Locked in ✓"; b.classList.add("done");
   setTimeout(() => { b.textContent = "Lock in my plan"; b.classList.remove("done"); }, 3000);
 }
+
+$("customInput").addEventListener("input", e => { customPick = e.target.value.trim(); cart(); });
 
 render(); cart();
 </script>

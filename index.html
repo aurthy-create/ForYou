@@ -84,6 +84,23 @@ textarea{width:100%;min-height:80px;border:1px solid var(--line);border-radius:1
 textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
 .err{color:var(--red);font-size:14px;min-height:20px;margin:12px 0 4px;font-weight:500}
 .empty{color:#D8DFEA;text-align:center;padding:30px 0}
+/* ---- subtle polish ---- */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+.wrap,.cartbar{position:relative;z-index:1}
+.cartbar{position:fixed;z-index:5}
+.card{position:relative}
+.card::before{content:"";position:absolute;top:12px;right:12px;width:16px;height:16px;border-top:2px solid var(--red);border-right:2px solid var(--red);opacity:.85;pointer-events:none}
+.btn,.cartbar button{border-radius:0;clip-path:polygon(10px 0,100% 0,100% calc(100% - 10px),calc(100% - 10px) 100%,0 100%,0 10px);transition:.2s,transform .1s}
+.btn:active,.cartbar button:active{transform:scale(.98)}
+.item{position:relative;overflow:hidden;animation:in .45s ease both}
+.item::before{content:"";position:absolute;left:0;top:14%;bottom:14%;width:3px;border-radius:2px;background:var(--red);transform:scaleY(0);transition:transform .25s ease}
+.item:hover::before{transform:scaleY(.5)}
+.item.selected::before{transform:scaleY(1)}
+.dot{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.btn.done{background:var(--red);color:#fff}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media(max-width:400px){.pic{width:92px}.card{padding:24px 16px}.clock .n{width:34px;height:34px;margin:-17px 0 0 -17px;font-size:14px}}
 </style>
 </head>
@@ -145,7 +162,7 @@ textarea:focus{outline:2px solid var(--lav);outline-offset:1px}
     <textarea id="note" placeholder="Write it here"></textarea>
 
     <p class="err" id="err" role="alert"></p>
-    <button class="btn blush" onclick="send()">Send me your plan</button>
+    <button class="btn blush" id="sendBtn" onclick="send()">Lock in my plan</button>
     <button class="link" onclick="go(2)">Back to my picks</button>
   </div>
 </div>
@@ -252,6 +269,7 @@ function render(){
     h += items.map(card).join("");
   });
   $("list").innerHTML = h || `<p class="empty">Nothing here yet.</p>`;
+  document.querySelectorAll("#list .item").forEach((el,k) => el.style.animationDelay = Math.min(k,10)*45 + "ms");
 }
 $("list").addEventListener("click", e => {
   if (e.target.closest("a")) return;
@@ -355,6 +373,8 @@ function send(){
   if (note) msg += `\n\nNote: ${note}`;
   msg += `\n\nSee you there!`;
   window.open(`https://wa.me/${MY_PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+  const b = $("sendBtn"); b.textContent = "Locked in ✓"; b.classList.add("done");
+  setTimeout(() => { b.textContent = "Lock in my plan"; b.classList.remove("done"); }, 3000);
 }
 
 render(); cart();

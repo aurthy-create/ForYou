@@ -239,7 +239,7 @@ function card(i){
   return `<div class="item ${on?"selected":""}" data-id="${i.id}">
     <img class="pic" src="${esc(i.img||"")}" alt="${esc(i.name)} sign" loading="lazy" onerror="this.onerror=null;this.src=PLACEHOLDER">
     <div class="info"><div class="name">${esc(i.name)}</div><p class="note">${esc(i.note)}</p>
-    ${i.maps?`<a class="map" href="${esc(i.maps)}" target="_blank" rel="noopener">View on Google Maps ↗</a>`:""}</div>
+    ${i.maps?`<a class="map" href="${esc(i.maps)}" target="_blank" rel="noopener">View on Google ↗</a>`:""}</div>
     <button class="add">${on?"Added ✓":"Add"}</button></div>`;
 }
 function render(){
